@@ -64,4 +64,28 @@ public class Pile2Test extends junit.framework.TestCase {
 	 * "Enregistrer une méthode de test".
 	 */
 
+
+    public void testMonTest() throws Exception
+    {
+        question2.Pile2 pile21 = new question2.Pile2();
+        question2.Pile2 pile22 = new question2.Pile2();
+        assertEquals(6, pile21.capacite());
+        pile21.empiler(1);
+        pile21.empiler(2);
+        pile21.empiler(3);
+        assertEquals(3, pile21.taille());
+        assertEquals(false, pile21.estPleine());
+        assertEquals(false, pile21.estVide());
+        pile22.empiler(1);
+        assertEquals(1, pile22.depiler());
+        pile22.empiler(1);
+        pile22.empiler(2);
+        pile22.empiler(3);
+        assertEquals(true, pile21.equals(pile22));
+        assertEquals(true, pile22.equals(pile21));
+        assertEquals(true, pile22.equals(pile22));
+        assertEquals(3, pile22.depiler());
+        assertEquals(false, pile22.equals(pile21));
+    }
 }
+

@@ -65,4 +65,21 @@ public class Pile3Test extends junit.framework.TestCase {
 	 * "Enregistrer une méthode de test".
 	 */
 
+
+    public void testMontest()throws Exception
+    {
+        question2.Pile3 pile31 = new question2.Pile3();
+        question2.Pile3 pile32 = new question2.Pile3();
+        pile31.empiler(1);
+        pile32.empiler(1);
+        pile31.empiler(2);
+        assertEquals(false, pile31.equals(pile32));
+        pile32.empiler(2);
+        assertEquals(true, pile31.equals(pile32));
+        assertEquals(true, pile32.equals(pile31));
+        assertEquals(2, pile32.depiler());
+        assertEquals(false, pile32.equals(pile31));
+        assertEquals(true, pile32.equals(pile32));
+    }
 }
+

@@ -2,6 +2,7 @@ package question1;
 
 import question1.PilePleineException;
 import question1.PileVideException;
+import question2.PileI;
 
 /**
  * A remplacer par votre classe Pile .
@@ -9,10 +10,10 @@ import question1.PileVideException;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class Pile {
+public class Pile implements PileI {
     public final static int TAILLE_PAR_DEFAUT = 5;
 
-    private int[] zone;
+    private Object[] zone;
     private int ptr;
 
     /**
@@ -22,7 +23,7 @@ public class Pile {
     public Pile(int taille) {
         if (taille < 0)
             taille = TAILLE_PAR_DEFAUT;
-        this.zone = new int[taille];
+        this.zone = new Object[taille];
         this.ptr = 0;
     }
 
@@ -30,14 +31,14 @@ public class Pile {
         this(TAILLE_PAR_DEFAUT);
     }
 
-    public void empiler(int i) throws PilePleineException {
+    public void empiler(Object i) throws PilePleineException {
         if (estPleine())
             throw new PilePleineException();
         this.zone[this.ptr] = i;
         this.ptr++;
     }
 
-    public int depiler() throws PileVideException {
+    public Object depiler() throws PileVideException {
         if (estVide())
             throw new PileVideException();
         this.ptr--;
@@ -55,11 +56,34 @@ public class Pile {
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
         for (int i = ptr - 1; i >= 0; i--) {
-            sb.append(Integer.toString(zone[i]));
+            sb.append((zone[i]));
             if (i > 0)
                 sb.append(", ");
         }
         sb.append("]");
         return sb.toString();
     }
+    
+    public Object sommet() throws PileVideException{
+        if (taille()==0)return "la pile est vide";
+        else return zone[taille()-1];}
+    
+    public int capacite(){return zone.length;}
+    
+    public int taille(){
+        return ptr;
+    }
+    
+    public boolean equals(Pile p){
+    if(this.capacite()!=p.capacite())return false;
+    else if(this.taille()!=p.taille())return false;
+    else {
+        for(int i=0;i<p.taille();i++){
+           if(this.zone[i]!=p.zone[i])return false;
+        }
+     }
+     return true;
+    }
+    
+    public int hashCode(){return zone.hashCode();}
 }

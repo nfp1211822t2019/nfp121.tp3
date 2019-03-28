@@ -57,4 +57,20 @@ public class Pile4Test extends junit.framework.TestCase {
 		// Libérez ici les ressources engagées par setUp()
 	}
 
+
+    public void testMontest() throws Exception
+    {
+        question2.Pile4 pile41 = new question2.Pile4();
+        question2.Pile4 pile42 = new question2.Pile4();
+        pile41.empiler(1);
+        pile41.empiler(2);
+        pile42.empiler(1);
+        assertEquals(2, pile41.taille());
+        assertEquals(false, pile41.equals(pile42));
+        pile42.empiler(2);
+        assertEquals(true, pile42.equals(pile41));
+        assertEquals(2, pile41.depiler());
+        assertEquals(true, pile41.equals(pile41));
+    }
 }
+
