@@ -45,8 +45,8 @@ public class Pile2 implements PileI {
 
     public Object sommet() throws PileVideException {
         if(estVide())throw new PileVideException();
-        Object o1=(Object)stk.peek();
-        return o1;
+        Object o=(Object)stk.peek();
+        return o;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Pile2 implements PileI {
      */
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
-        for (int i = stk.size() - 1; i >= 0; i--) {
+        for (int i = this.taille()- 1; i >= 0; i--) {
             sb.append(stk.get(i).toString());
             if (i > 0)
                 sb.append(", ");
@@ -84,17 +84,56 @@ public class Pile2 implements PileI {
         sb.append("]");
         return sb.toString();
     }
- 
-    public boolean equals(Object o) { 
-    if (o instanceof PileI) { 
-      PileI p = (PileI) o; 
-      return this.capacite() == p.capacite() 
-          && this.hashCode() == p.hashCode(); 
-    } else 
-      return false; 
-  }
     
-
+    
+     public void copy(PileI p1, PileI p2){
+        while(!p1.estVide()){
+            try{
+                p2.empiler(p1.depiler());
+            } catch (PileVideException e){}
+            catch (PilePleineException p){}
+        }
+    }
+    
+    public boolean equals(Object o) {
+		
+        if(!(o instanceof PileI)) return false;
+        
+        PileI p = (PileI)o;  
+        if(super.equals(o))
+            return true;   
+              
+        if(this.capacite() != p.capacite()) return false;            
+        if(this.taille() != p.taille()) return false;            
+                  
+        
+        Pile2 p1 = new Pile2(this.taille());        
+        Pile2 p2 = new Pile2(p.taille());
+        boolean b;
+        
+        while (!p.estVide()){
+            try{
+                b = false;
+             if(this.sommet().equals(p.sommet())) b = true;            
+             if(b==true){
+                p1.empiler(this.depiler());                    
+                p2.empiler(p.depiler());
+                }
+                
+                else{
+               
+                copy(p2, p);
+                 copy(p1, this);
+                return false;
+                }
+            } 
+            catch(PilePleineException e){}            
+            catch(PileVideException ee){}
+        }
+        copy(p2, p); 
+        copy(p1, this);   
+        return true;
+    }
     // fonction fournie
     public int hashCode() {
         return toString().hashCode();

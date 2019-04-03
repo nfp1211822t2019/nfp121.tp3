@@ -74,14 +74,53 @@ public class Pile implements PileI {
         return ptr;
     }
     
-     public boolean equals(Object o) { 
-    if (o instanceof PileI) { 
-      PileI p = (PileI) o; 
-      return this.capacite() == p.capacite() 
-          && this.hashCode() == p.hashCode(); 
-    } else 
-      return false; 
-  }
+     public void copy(PileI pa, PileI pi){
+        while(!pa.estVide()){
+            try{
+                pi.empiler(pa.depiler());
+            } catch (PileVideException e){}
+            catch (PilePleineException p){}
+        }
+    }
+    
+    public boolean equals(Object o) {
+		
+        if(!(o instanceof PileI)) return false;
+        
+        PileI p = (PileI)o;   
+         if(super.equals(o))
+            return true;    
+        if(this.capacite() != p.capacite()) return false;            
+        if(this.taille() != p.taille()) return false;        
+       
+        Pile p1 = new Pile(this.taille());        
+        Pile p2 = new Pile(p.taille());
+        boolean b;
+        
+        while (!p.estVide()){
+            try{
+                b = false;
+             if(this.sommet().equals(p.sommet()))  b = true;
+            
+             if(b==true){
+                p1.empiler(this.depiler());                    
+                p2.empiler(p.depiler());
+                }
+                
+                else{
+                copy(p1, this);
+                copy(p2, p);
+                return false;
+                }
+            } 
+            catch(PilePleineException e){}            
+            catch(PileVideException ee){}
+        }
+        copy(p2, p);
+        copy(p1, this);        
+
+        return true;
+    }
     
     public int hashCode(){ return toString().hashCode();}
 

@@ -2,7 +2,6 @@ package question1;
 
 import question1.PilePleineException;
 import question1.PileVideException;
-import question2.PileI;
 
 /**
  * A remplacer par votre classe Pile .
@@ -10,7 +9,7 @@ import question2.PileI;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class Pile implements PileI {
+public class Pile {
     public final static int TAILLE_PAR_DEFAUT = 5;
 
     private Object[] zone;
@@ -64,26 +63,6 @@ public class Pile implements PileI {
         return sb.toString();
     }
     
-    public Object sommet() throws PileVideException{
-        if (taille()==0)return "la pile est vide";
-        else return zone[taille()-1];}
-    
-    public int capacite(){return zone.length;}
-    
-    public int taille(){
-        return ptr;
-    }
-    
-    public boolean equals(Pile p){
-    if(this.capacite()!=p.capacite())return false;
-    else if(this.taille()!=p.taille())return false;
-    else {
-        for(int i=0;i<p.taille();i++){
-           if(this.zone[i]!=p.zone[i])return false;
-        }
-     }
-     return true;
-    }
-    
-    public int hashCode(){return zone.hashCode();}
+   
+   
 }

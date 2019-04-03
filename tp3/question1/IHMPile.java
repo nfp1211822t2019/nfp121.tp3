@@ -39,9 +39,10 @@ public class IHMPile extends JFrame implements ActionListener{
             try{
             p.empiler(donnee.getText());
             donnee.setText("");
+            contenu.setText(p.toString());
         }
-            catch(Exception p){
-            contenu.setText( /* à compléter */"la pile" + " estPleine !");
+            catch(Exception e){
+            contenu.setText(p.toString() + " estPleine !");
 
             }
 
@@ -52,9 +53,12 @@ public class IHMPile extends JFrame implements ActionListener{
 
         }else{
             try{
-           sommet.setText(p.depiler().toString());}
-            catch(Exception p){
-            contenu.setText( /* à compléter */"la pile" + " estVide !");
+           sommet.setText(p.depiler().toString());
+            contenu.setText(p.toString());
+
+        }
+            catch(Exception e){
+            contenu.setText( p.toString() + " estVide !");
 
             }
            
